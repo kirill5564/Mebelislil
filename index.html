@@ -347,7 +347,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             border: 1px solid transparent;
-            cursor: pointer;
         }
 
         body.dark-theme .header-btn {
@@ -1930,11 +1929,6 @@
 
     <script>
         (function() {
-            // ========== НАСТРОЙКИ ОТПРАВКИ В ВК ==========
-            const VK_TOKEN = 'vk1.a.GURrqKLx3zI6k3hEluhS9ZLXSjCRezF7gLh9BpUuNkWzj1UU6vY2VHipDPjeV31-3_v1BeTyTS4_xPqROCs0AaKZuRxa1oChWbWIq_tWFKQLTIpki1oGbfAD7KT-dhOS724VCzcs1sw9dNCEyiyztciRrdplOxiESIV5pacvLfSHQummOTVp9PYFkK_97aENKNsItYeW6Nu0UUcJxeKTBw';
-            const ADMIN_USER_ID = 270386638; // Ваш личный ID для получения заявок
-            // =============================================
-
             // Определяем, мобильное ли устройство
             const isMobile = window.innerWidth <= 768;
             
@@ -1942,6 +1936,7 @@
             function getMobileSrc(originalSrc) {
                 if (!isMobile) return originalSrc;
                 let mobileSrc = originalSrc.replace(/^image\//, 'image/mobile/');
+                // Для Шкафов не меняем расширение
                 if (!mobileSrc.includes('/Шкафы/')) {
                     mobileSrc = mobileSrc.replace(/\.(jpg|jpeg|png|jfif)$/i, '.webp');
                 }
@@ -2081,7 +2076,7 @@
             partners.forEach((p,i)=>{ let c=document.createElement('div'); c.className='partner-card-static'; c.innerHTML = `<div class="partner-logo-static" style="background-color:${colors[i%colors.length]}">${p.name.charAt(0)}</div><div class="partner-name-static">${p.name}</div><div class="partner-desc-static">${p.desc}</div>`; trackP.appendChild(c); });
             partners.forEach((p,i)=>{ let c=document.createElement('div'); c.className='partner-card-static'; c.innerHTML = `<div class="partner-logo-static" style="background-color:${colors[i%colors.length]}">${p.name.charAt(0)}</div><div class="partner-name-static">${p.name}</div><div class="partner-desc-static">${p.desc}</div>`; trackP.appendChild(c); });
 
-            // ========== ПОПАП С ФОРМОЙ ЗАЯВКИ ==========
+            // Попап с формой заявки
             const orderPopup = document.getElementById('orderPopup');
             const orderPopupClose = document.getElementById('orderPopupClose');
             const orderForm = document.getElementById('orderForm');
@@ -2107,62 +2102,12 @@
                 if (orderPopup.classList.contains('active') && e.key === 'Escape') closeOrderPopup();
             });
 
-            // Функция отправки заявки админу в ВК
-            async function sendToVK(name, phone) {
-                const message = `📩 Новая заявка с сайта!\n👤 Имя: ${name}\n📞 Телефон: ${phone}`;
-                const randomId = Date.now();
-                
-                const apiUrl = `https://api.vk.com/method/messages.send?access_token=${VK_TOKEN}&user_id=${ADMIN_USER_ID}&message=${encodeURIComponent(message)}&random_id=${randomId}&v=5.199`;
-                
-                try {
-                    const response = await fetch(apiUrl);
-                    const data = await response.json();
-                    
-                    if (data.response) {
-                        console.log('✅ Заявка отправлена в ВК');
-                        return true;
-                    } else if (data.error) {
-                        console.error('Ошибка API ВК:', data.error.error_msg);
-                        return false;
-                    }
-                } catch (error) {
-                    console.error('Сетевая ошибка:', error);
-                    return false;
-                }
-            }
-
-            orderForm.addEventListener('submit', async function(e) {
+            orderForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
-                const nameInput = document.getElementById('orderName');
-                const phoneInput = document.getElementById('orderPhone');
-                const submitBtn = orderForm.querySelector('.btn');
-                
-                const name = nameInput.value.trim();
-                const phone = phoneInput.value.trim();
-                
-                if (!name || !phone) return;
-                
-                // Блокируем кнопку
-                submitBtn.textContent = 'Отправка...';
-                submitBtn.style.pointerEvents = 'none';
-                
-                // Отправляем заявку в ВК
-                const success = await sendToVK(name, phone);
-                
-                // Показываем успех
                 orderForm.style.display = 'none';
                 orderSuccess.classList.add('active');
-                
-                // Возвращаем кнопку
-                submitBtn.textContent = 'Отправить';
-                submitBtn.style.pointerEvents = 'auto';
-                
-                // Закрываем попап через 3 секунды
                 setTimeout(function() {
                     closeOrderPopup();
-                    nameInput.value = '';
-                    phoneInput.value = '';
                 }, 3000);
             });
         })();
