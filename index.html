@@ -1930,10 +1930,9 @@
 
     <script>
         (function() {
-            // ========== НАСТРОЙКИ ОТПРАВКИ В ВК ==========
-            const VK_TOKEN = 'vk1.a.GURrqKLx3zI6k3hEluhS9ZLXSjCRezF7gLh9BpUuNkWzj1UU6vY2VHipDPjeV31-3_v1BeTyTS4_xPqROCs0AaKZuRxa1oChWbWIq_tWFKQLTIpki1oGbfAD7KT-dhOS724VCzcs1sw9dNCEyiyztciRrdplOxiESIV5pacvLfSHQummOTVp9PYFkK_97aENKNsItYeW6Nu0UUcJxeKTBw';
-            const ADMIN_USER_ID = 270386638; // Ваш личный ID для получения заявок
-            // =============================================
+            // ========== НАСТРОЙКИ ОТПРАВКИ ==========
+            const SERVER_URL = 'https://server-zjg9.onrender.com/send';
+            // =========================================
 
             // Определяем, мобильное ли устройство
             const isMobile = window.innerWidth <= 768;
@@ -2107,22 +2106,20 @@
                 if (orderPopup.classList.contains('active') && e.key === 'Escape') closeOrderPopup();
             });
 
-            // Функция отправки заявки админу в ВК
+            // Функция отправки заявки через сервер
             async function sendToVK(name, phone) {
-                const message = `📩 Новая заявка с сайта!\n👤 Имя: ${name}\n📞 Телефон: ${phone}`;
-                const randomId = Date.now();
-                
-                const apiUrl = `https://api.vk.com/method/messages.send?access_token=${VK_TOKEN}&user_id=${ADMIN_USER_ID}&message=${encodeURIComponent(message)}&random_id=${randomId}&v=5.199`;
-                
                 try {
-                    const response = await fetch(apiUrl);
+                    const response = await fetch(SERVER_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, phone })
+                    });
                     const data = await response.json();
-                    
-                    if (data.response) {
-                        console.log('✅ Заявка отправлена в ВК');
+                    if (data.status === 'ok') {
+                        console.log('✅ Заявка отправлена');
                         return true;
-                    } else if (data.error) {
-                        console.error('Ошибка API ВК:', data.error.error_msg);
+                    } else {
+                        console.error('Ошибка сервера:', data.message);
                         return false;
                     }
                 } catch (error) {
@@ -2147,8 +2144,8 @@
                 submitBtn.textContent = 'Отправка...';
                 submitBtn.style.pointerEvents = 'none';
                 
-                // Отправляем заявку в ВК
-                const success = await sendToVK(name, phone);
+                // Отправляем заявку через сервер
+                await sendToVK(name, phone);
                 
                 // Показываем успех
                 orderForm.style.display = 'none';
