@@ -1726,6 +1726,57 @@
             opacity: 0.7;
         }
 
+        /* Радио-кнопки выбора связи */
+        .contact-methods {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .contact-method-option {
+            flex: 1;
+            min-width: 90px;
+        }
+
+        .contact-method-option input {
+            display: none;
+        }
+
+        .contact-method-option label {
+            display: block;
+            padding: 10px 8px;
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        body.dark-theme .contact-method-option label {
+            border-color: var(--border-dark);
+            color: var(--text-secondary-dark);
+        }
+
+        .contact-method-option input:checked + label {
+            border-color: var(--primary);
+            background: rgba(26, 59, 46, 0.05);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        body.dark-theme .contact-method-option input:checked + label {
+            border-color: var(--accent);
+            background: rgba(212, 182, 138, 0.1);
+            color: var(--accent);
+        }
+
+        .contact-method-option label:hover {
+            border-color: var(--accent);
+        }
+
         .order-popup .btn {
             width: 100%;
             margin-top: 6px;
@@ -1797,7 +1848,7 @@
             </ul>
             <div class="header-right">
                 <div class="phone"><a href="tel:+78129258856"><i class="fas fa-phone"></i> +7 (812) 925 88-56</a></div>
-                <a href="javascript:void(0)" class="header-btn" onclick="openOrderPopup()">Заказать</a>
+                <a href="javascript:void(0)" class="header-btn" onclick="openOrderPopup('Заказать')">Заказать</a>
             </div>
         </div>
     </header>
@@ -1813,7 +1864,7 @@
     <section class="hero" id="hero"><div class="container"><div class="hero-content">
         <div class="hero-title">Интерьер, в который хочется возвращаться</div>
         <div class="hero-subtitle">Полный цикл меблировки квартир — от идеи до передачи ключей. Работаем в Санкт-Петербурге и Ленобласти.</div>
-        <a href="javascript:void(0)" class="btn" onclick="openOrderPopup()">Рассчитать стоимость</a>
+        <a href="javascript:void(0)" class="btn" onclick="openOrderPopup('Рассчитать стоимость')">Рассчитать стоимость</a>
         <div class="hero-text">Доверяя обустройство профессионалам, вы получаете не просто мебель, а готовое пространство для жизни.</div>
     </div></div></section>
 
@@ -1825,7 +1876,7 @@
             <p>За каждым проектом стоит индивидуальный подход и внимание к деталям. Мы не просто расставляем мебель — мы создаём целостное пространство, где всё продумано до мелочей.</p>
             <p>Сотрудничаем с проверенными фабриками и поставщиками, поэтому можем предложить широкий выбор материалов и решений под любой бюджет. А в наших салонах вы сможете лично оценить качество представленных образцов.</p>
             <p>Мы сопровождаем проект на всех этапах, избавляя вас от лишних хлопот. Наш принцип — ответственный подход и искренняя забота о результате.</p>
-            <a href="javascript:void(0)" class="btn" onclick="openOrderPopup()">Обсудить проект</a>
+            <a href="javascript:void(0)" class="btn" onclick="openOrderPopup('Обсудить проект')">Обсудить проект</a>
         </div>
     </div></div></section>
 
@@ -1840,7 +1891,7 @@
     <div class="steps-right"><div class="steps-image"><img src="image/IMG_8212.jpg" data-mobile-src="image/mobile/IMG_8212.webp" alt="Процесс работы над интерьером" loading="lazy"></div>
     <div class="steps-note"><p>Обычно полная комплектация студии или однокомнатной квартиры занимает около 4 недель — при условии выбора позиций со склада. Индивидуальные заказы могут увеличить срок.</p>
     <p>Все этапы можно согласовывать удалённо. Мы регулярно направляем фото- и видеоотчёты, остаёмся на связи в удобных мессенджерах.</p></div></div></div>
-    <div class="steps-btn"><a href="javascript:void(0)" class="btn" onclick="openOrderPopup()">Начать проект</a></div></div></section>
+    <div class="steps-btn"><a href="javascript:void(0)" class="btn" onclick="openOrderPopup('Начать проект')">Начать проект</a></div></div></section>
 
     <!-- ПАКЕТЫ -->
     <section class="packages" id="packages"><div class="container"><div class="section-title"><h2>Готовые решения</h2><p>Два варианта комплектации для квартир с чистовой отделкой. Стоимость указана за базовый набор.</p></div>
@@ -1910,7 +1961,24 @@
                 </div>
                 <div class="order-form-group">
                     <label for="orderPhone">Номер телефона</label>
-                    <input type="tel" id="orderPhone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                    <input type="tel" id="orderPhone" name="phone" placeholder="+7 (999) 999-99-99" required>
+                </div>
+                <div class="order-form-group">
+                    <label>Удобный способ связи</label>
+                    <div class="contact-methods">
+                        <div class="contact-method-option">
+                            <input type="radio" id="methodCall" name="contactMethod" value="Звонок">
+                            <label for="methodCall">📞 Звонок</label>
+                        </div>
+                        <div class="contact-method-option">
+                            <input type="radio" id="methodVK" name="contactMethod" value="Чат в ВК">
+                            <label for="methodVK">💬 Чат в ВК</label>
+                        </div>
+                        <div class="contact-method-option">
+                            <input type="radio" id="methodMax" name="contactMethod" value="Чат в MAX">
+                            <label for="methodMax">📱 Чат в MAX</label>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn">Отправить</button>
             </form>
@@ -2005,9 +2073,9 @@
             if(packagesGrid){
                 packagesGrid.innerHTML = `
                 <div class="package-card studio-package"><div class="package-header"><h3 class="package-name">Стандарт</h3><div class="package-price">от 349 000 ₽</div><a href="https://brwmebel.github.io/apartment-studio/" class="btn" style="width:100%;" target="_blank">Выбрать пакет</a></div><div class="package-features"><div class="feature-section"><h4>Кухня</h4><div class="feature"><i class="fas fa-check"></i><span>Кухонный гарнитур прямой до 1800 мм</span></div><div class="feature"><i class="fas fa-check"></i><span>Мойка кухонная</span></div><div class="feature"><i class="fas fa-check"></i><span>Смеситель</span></div><div class="feature"><i class="fas fa-check"></i><span>Варочная панель электрическая (2 комфорки)</span></div><div class="feature"><i class="fas fa-check"></i><span>Микроволновая печь</span></div><div class="feature"><i class="fas fa-check"></i><span>Вытяжка наклонная/встраиваемая</span></div><div class="feature"><i class="fas fa-check"></i><span>Холодильник отдельностоящий</span></div><div class="feature"><i class="fas fa-check"></i><span>Карниз</span></div><div class="feature"><i class="fas fa-check"></i><span>Тюль</span></div><div class="feature"><i class="fas fa-check"></i><span>Шторы светонепроницаемые блэкаут</span></div></div><div class="feature-section"><h4>Гостиная / Спальня</h4><div class="feature"><i class="fas fa-check"></i><span>Диван еврокнижка</span></div><div class="feature"><i class="fas fa-check"></i><span>Шкаф распашной двухстворчатый</span></div><div class="feature"><i class="fas fa-check"></i><span>Комод/тумба под ТВ</span></div><div class="feature"><i class="fas fa-check"></i><span>Стол прямоугольный обеденный</span></div><div class="feature"><i class="fas fa-check"></i><span>Стулья 2 штуки</span></div></div><div class="feature-section"><h4>Прихожая</h4><div class="feature"><i class="fas fa-check"></i><span>Прихожая с крючками для одежды, зеркалом и обувницей</span></div></div><div class="feature-section"><h4>В стоимость включены</h4><div class="feature"><i class="fas fa-check"></i><span>Дизайн-проект</span></div><div class="feature"><i class="fas fa-check"></i><span>Доставка, сборка и установка, перенос точек электричества в зоне кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Клининг</span></div></div><div class="feature-note"><i class="fas fa-plus-circle"></i> Дополнительные услуги по согласованию: Расширенный комплект для подготовки квартиры — от 24 900 ₽</div></div></div>
-                <div class="package-card studio-package comfort-package"><div class="package-header"><h3 class="package-name">Комфорт</h3><div class="package-price">от 450 000 ₽</div><a href="javascript:void(0)" class="btn" style="width:100%;" onclick="openOrderPopup()">Выбрать пакет</a></div><div class="package-features"><div class="feature-section"><h4>Кухня</h4><div class="feature"><i class="fas fa-check"></i><span>Индивидуальный проект кухни (цвет фасадов на выбор)</span></div><div class="feature"><i class="fas fa-check"></i><span>Мойка иск. камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Смеситель иск. камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Варочная панель электрическая</span></div><div class="feature"><i class="fas fa-check"></i><span>Микроволновая печь</span></div><div class="feature"><i class="fas fa-check"></i><span>Вытяжка наклонная/встраиваемая</span></div><div class="feature"><i class="fas fa-check"></i><span>Духовой шкаф встраиваемый</span></div><div class="feature"><i class="fas fa-check"></i><span>Холодильник отдельностоящий NO FROST</span></div><div class="feature"><i class="fas fa-check"></i><span>Карниз</span></div><div class="feature"><i class="fas fa-check"></i><span>Тюль</span></div><div class="feature"><i class="fas fa-check"></i><span>Шторы светонепроницаемые блэкаут</span></div></div><div class="feature-section"><h4>Гостиная / Спальня</h4><div class="feature"><i class="fas fa-check"></i><span>Диван ортопедический (еврокнижка/аккордеон)</span></div><div class="feature"><i class="fas fa-check"></i><span>Шкаф распашной двухстворчатый (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>Комод/тумба под ТВ (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>Стол обеденный</span></div><div class="feature"><i class="fas fa-check"></i><span>Стулья 2 штуки</span></div></div><div class="feature-section"><h4>Прихожая</h4><div class="feature"><i class="fas fa-check"></i><span>Прихожая с крючками для одежды, зеркалом и обувницей (на выбор)</span></div></div><div class="feature-section"><h4>В стоимость включены</h4><div class="feature"><i class="fas fa-check"></i><span>Дизайн-проект</span></div><div class="feature"><i class="fas fa-check"></i><span>Доставка, сборка и установка, перенос точек электричества в зоне кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Клининг</span></div></div><div class="feature-note"><i class="fas fa-plus-circle"></i> Дополнительные услуги по согласованию: Расширенный комплект для подготовки квартиры — от 24 900 ₽</div></div></div>
+                <div class="package-card studio-package comfort-package"><div class="package-header"><h3 class="package-name">Комфорт</h3><div class="package-price">от 450 000 ₽</div><a href="javascript:void(0)" class="btn" style="width:100%;" onclick="openOrderPopup('Комфорт (студия)')">Выбрать пакет</a></div><div class="package-features"><div class="feature-section"><h4>Кухня</h4><div class="feature"><i class="fas fa-check"></i><span>Индивидуальный проект кухни (цвет фасадов на выбор)</span></div><div class="feature"><i class="fas fa-check"></i><span>Мойка иск. камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Смеситель иск. камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Варочная панель электрическая</span></div><div class="feature"><i class="fas fa-check"></i><span>Микроволновая печь</span></div><div class="feature"><i class="fas fa-check"></i><span>Вытяжка наклонная/встраиваемая</span></div><div class="feature"><i class="fas fa-check"></i><span>Духовой шкаф встраиваемый</span></div><div class="feature"><i class="fas fa-check"></i><span>Холодильник отдельностоящий NO FROST</span></div><div class="feature"><i class="fas fa-check"></i><span>Карниз</span></div><div class="feature"><i class="fas fa-check"></i><span>Тюль</span></div><div class="feature"><i class="fas fa-check"></i><span>Шторы светонепроницаемые блэкаут</span></div></div><div class="feature-section"><h4>Гостиная / Спальня</h4><div class="feature"><i class="fas fa-check"></i><span>Диван ортопедический (еврокнижка/аккордеон)</span></div><div class="feature"><i class="fas fa-check"></i><span>Шкаф распашной двухстворчатый (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>Комод/тумба под ТВ (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>Стол обеденный</span></div><div class="feature"><i class="fas fa-check"></i><span>Стулья 2 штуки</span></div></div><div class="feature-section"><h4>Прихожая</h4><div class="feature"><i class="fas fa-check"></i><span>Прихожая с крючками для одежды, зеркалом и обувницей (на выбор)</span></div></div><div class="feature-section"><h4>В стоимость включены</h4><div class="feature"><i class="fas fa-check"></i><span>Дизайн-проект</span></div><div class="feature"><i class="fas fa-check"></i><span>Доставка, сборка и установка, перенос точек электричества в зоне кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Клининг</span></div></div><div class="feature-note"><i class="fas fa-plus-circle"></i> Дополнительные услуги по согласованию: Расширенный комплект для подготовки квартиры — от 24 900 ₽</div></div></div>
                 <div class="package-card one-room-package" style="display:none;"><div class="package-header"><h3 class="package-name">Стандарт</h3><div class="package-price">от 399 000 ₽</div><a href="https://brwmebel.github.io/1_room/" class="btn" style="width:100%;" target="_blank">Выбрать пакет</a></div><div class="package-features"><div class="feature-section"><h4>Кухня</h4><div class="feature"><i class="fas fa-check"></i><span>Индивидуальный проект прямой кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Мойка иск.камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Смеситель иск.камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Варочная панель электрическая</span></div><div class="feature"><i class="fas fa-check"></i><span>Вытяжка встроенная/наклонная</span></div><div class="feature"><i class="fas fa-check"></i><span>Холодильник отдельностоящий</span></div><div class="feature"><i class="fas fa-check"></i><span>Микроволновая печь</span></div><div class="feature"><i class="fas fa-check"></i><span>Стол обеденный</span></div><div class="feature"><i class="fas fa-check"></i><span>Стулья 2 штуки (модель на выбор)</span></div></div><div class="feature-section"><h4>Гостиная / Спальня</h4><div class="feature"><i class="fas fa-check"></i><span>Тумба под тв</span></div><div class="feature"><i class="fas fa-check"></i><span>Карниз</span></div><div class="feature"><i class="fas fa-check"></i><span>Тюль</span></div><div class="feature"><i class="fas fa-check"></i><span>Шторы светонепроницаемые блэкаут</span></div><div class="feature"><i class="fas fa-check"></i><span>Диван раскладной /кровать + матрас</span></div><div class="feature"><i class="fas fa-check"></i><span>Шкаф трехстворчатый или 4х створчатый</span></div><div class="feature"><i class="fas fa-check"></i><span>Комод</span></div><div class="feature"><i class="fas fa-check"></i><span>2 прикроватные тумбы</span></div></div><div class="feature-section"><h4>Прихожая</h4><div class="feature"><i class="fas fa-check"></i><span>Прихожая с крючками для одежды, полкой для головных уборов и обувницей</span></div></div><div class="feature-section"><h4>В стоимость включены</h4><div class="feature"><i class="fas fa-check"></i><span>Дизайн-проект</span></div><div class="feature"><i class="fas fa-check"></i><span>Доставка, сборка и установка, перенос точек электричества в зоне кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Клининг</span></div></div><div class="feature-note"><i class="fas fa-plus-circle"></i> Дополнительные услуги по согласованию: Расширенный комплект для подготовки квартиры — от 24 900 ₽</div></div></div>
-                <div class="package-card one-room-package comfort-package" style="display:none;"><div class="package-header"><h3 class="package-name">Комфорт</h3><div class="package-price">от 525 000 ₽</div><a href="javascript:void(0)" class="btn" style="width:100%;" onclick="openOrderPopup()">Выбрать пакет</a></div><div class="package-features"><div class="feature-section"><h4>Кухня</h4><div class="feature"><i class="fas fa-check"></i><span>Индивидуальный проект прямой кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Мойка иск.камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Смеситель иск.камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Варочная панель электрическая</span></div><div class="feature"><i class="fas fa-check"></i><span>Вытяжка встроенная/наклонная</span></div><div class="feature"><i class="fas fa-check"></i><span>Холодильник отдельностоящий NO FROST</span></div><div class="feature"><i class="fas fa-check"></i><span>Духовой шкаф встраиваемый</span></div><div class="feature"><i class="fas fa-check"></i><span>Микроволновая печь</span></div><div class="feature"><i class="fas fa-check"></i><span>Стол обеденный (цвет модель на выбор)</span></div><div class="feature"><i class="fas fa-check"></i><span>Стулья 2 штуки (модель на выбор)</span></div></div><div class="feature-section"><h4>Гостиная / Спальня</h4><div class="feature"><i class="fas fa-check"></i><span>Тумба под тв / тумба комбинированная (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>Карниз</span></div><div class="feature"><i class="fas fa-check"></i><span>Тюль</span></div><div class="feature"><i class="fas fa-check"></i><span>Шторы светонепроницаемые блэкаут</span></div><div class="feature"><i class="fas fa-check"></i><span>Диван раскладной ортопедический/кровать/кровать мягкая + матрас</span></div><div class="feature"><i class="fas fa-check"></i><span>Шкаф трехстворчатый или 4х створчатый (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>Комод (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>2 прикроватные тумбы</span></div></div><div class="feature-section"><h4>Прихожая</h4><div class="feature"><i class="fas fa-check"></i><span>Прихожая комбинированная/шкаф купе</span></div></div><div class="feature-section"><h4>В стоимость включены</h4><div class="feature"><i class="fas fa-check"></i><span>Дизайн-проект</span></div><div class="feature"><i class="fas fa-check"></i><span>Доставка, сборка и установка, перенос точек электричества в зоне кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Клининг</span></div></div><div class="feature-note"><i class="fas fa-plus-circle"></i> Дополнительные услуги по согласованию: Расширенный комплект для подготовки квартиры — от 24 900 ₽</div></div></div>`;
+                <div class="package-card one-room-package comfort-package" style="display:none;"><div class="package-header"><h3 class="package-name">Комфорт</h3><div class="package-price">от 525 000 ₽</div><a href="javascript:void(0)" class="btn" style="width:100%;" onclick="openOrderPopup('Комфорт (1-комнатная)')">Выбрать пакет</a></div><div class="package-features"><div class="feature-section"><h4>Кухня</h4><div class="feature"><i class="fas fa-check"></i><span>Индивидуальный проект прямой кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Мойка иск.камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Смеситель иск.камень</span></div><div class="feature"><i class="fas fa-check"></i><span>Варочная панель электрическая</span></div><div class="feature"><i class="fas fa-check"></i><span>Вытяжка встроенная/наклонная</span></div><div class="feature"><i class="fas fa-check"></i><span>Холодильник отдельностоящий NO FROST</span></div><div class="feature"><i class="fas fa-check"></i><span>Духовой шкаф встраиваемый</span></div><div class="feature"><i class="fas fa-check"></i><span>Микроволновая печь</span></div><div class="feature"><i class="fas fa-check"></i><span>Стол обеденный (цвет модель на выбор)</span></div><div class="feature"><i class="fas fa-check"></i><span>Стулья 2 штуки (модель на выбор)</span></div></div><div class="feature-section"><h4>Гостиная / Спальня</h4><div class="feature"><i class="fas fa-check"></i><span>Тумба под тв / тумба комбинированная (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>Карниз</span></div><div class="feature"><i class="fas fa-check"></i><span>Тюль</span></div><div class="feature"><i class="fas fa-check"></i><span>Шторы светонепроницаемые блэкаут</span></div><div class="feature"><i class="fas fa-check"></i><span>Диван раскладной ортопедический/кровать/кровать мягкая + матрас</span></div><div class="feature"><i class="fas fa-check"></i><span>Шкаф трехстворчатый или 4х створчатый (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>Комод (доводчики)</span></div><div class="feature"><i class="fas fa-check"></i><span>2 прикроватные тумбы</span></div></div><div class="feature-section"><h4>Прихожая</h4><div class="feature"><i class="fas fa-check"></i><span>Прихожая комбинированная/шкаф купе</span></div></div><div class="feature-section"><h4>В стоимость включены</h4><div class="feature"><i class="fas fa-check"></i><span>Дизайн-проект</span></div><div class="feature"><i class="fas fa-check"></i><span>Доставка, сборка и установка, перенос точек электричества в зоне кухни</span></div><div class="feature"><i class="fas fa-check"></i><span>Клининг</span></div></div><div class="feature-note"><i class="fas fa-plus-circle"></i> Дополнительные услуги по согласованию: Расширенный комплект для подготовки квартиры — от 24 900 ₽</div></div></div>`;
                 document.querySelectorAll('.package-tab').forEach(t=>t.addEventListener('click',function(){ document.querySelectorAll('.package-tab').forEach(tt=>tt.classList.remove('active')); this.classList.add('active'); let isStudio=this.dataset.tab==='studio'; document.querySelectorAll('.studio-package').forEach(p=>p.style.display=isStudio?'block':'none'); document.querySelectorAll('.one-room-package').forEach(p=>p.style.display=isStudio?'none':'block'); })); 
             }
 
@@ -2080,17 +2148,52 @@
             partners.forEach((p,i)=>{ let c=document.createElement('div'); c.className='partner-card-static'; c.innerHTML = `<div class="partner-logo-static" style="background-color:${colors[i%colors.length]}">${p.name.charAt(0)}</div><div class="partner-name-static">${p.name}</div><div class="partner-desc-static">${p.desc}</div>`; trackP.appendChild(c); });
             partners.forEach((p,i)=>{ let c=document.createElement('div'); c.className='partner-card-static'; c.innerHTML = `<div class="partner-logo-static" style="background-color:${colors[i%colors.length]}">${p.name.charAt(0)}</div><div class="partner-name-static">${p.name}</div><div class="partner-desc-static">${p.desc}</div>`; trackP.appendChild(c); });
 
+            // ========== МАСКА ТЕЛЕФОНА ==========
+            const phoneInput = document.getElementById('orderPhone');
+            
+            phoneInput.addEventListener('input', function(e) {
+                let value = this.value.replace(/[^\d]/g, ''); // Оставляем только цифры
+                
+                // Ограничиваем длину (Россия — 11 цифр)
+                if (value.length > 11) value = value.slice(0, 11);
+                
+                // Форматируем
+                let formatted = '+7';
+                if (value.length > 1) formatted += ' (' + value.slice(1, 4);
+                if (value.length >= 4) formatted += ') ' + value.slice(4, 7);
+                if (value.length >= 7) formatted += '-' + value.slice(7, 9);
+                if (value.length >= 9) formatted += '-' + value.slice(9, 11);
+                
+                this.value = formatted;
+            });
+
+            phoneInput.addEventListener('keydown', function(e) {
+                // Разрешаем: Backspace, Delete, стрелки, Tab
+                if (e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Tab') {
+                    return;
+                }
+                // Блокируем всё, кроме цифр
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+
             // ========== ПОПАП С ФОРМОЙ ЗАЯВКИ ==========
             const orderPopup = document.getElementById('orderPopup');
             const orderPopupClose = document.getElementById('orderPopupClose');
             const orderForm = document.getElementById('orderForm');
             const orderSuccess = document.getElementById('orderSuccess');
 
-            window.openOrderPopup = function() {
+            let currentButton = '';
+
+            window.openOrderPopup = function(buttonName) {
+                currentButton = buttonName || 'Не указана';
                 orderForm.style.display = 'block';
                 orderSuccess.classList.remove('active');
                 orderPopup.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                // Сбрасываем радио-кнопки
+                document.querySelectorAll('input[name="contactMethod"]').forEach(r => r.checked = false);
             };
 
             function closeOrderPopup() {
@@ -2107,12 +2210,12 @@
             });
 
             // Функция отправки заявки через сервер
-            async function sendToVK(name, phone) {
+            async function sendToVK(name, phone, method, button) {
                 try {
                     const response = await fetch(SERVER_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, phone })
+                        body: JSON.stringify({ name, phone, method, button })
                     });
                     const data = await response.json();
                     if (data.status === 'ok') {
@@ -2132,11 +2235,15 @@
                 e.preventDefault();
                 
                 const nameInput = document.getElementById('orderName');
-                const phoneInput = document.getElementById('orderPhone');
+                const phoneInputEl = document.getElementById('orderPhone');
                 const submitBtn = orderForm.querySelector('.btn');
                 
                 const name = nameInput.value.trim();
-                const phone = phoneInput.value.trim();
+                const phone = phoneInputEl.value.trim();
+                
+                // Получаем выбранный способ связи
+                const methodRadio = document.querySelector('input[name="contactMethod"]:checked');
+                const method = methodRadio ? methodRadio.value : 'Не указан';
                 
                 if (!name || !phone) return;
                 
@@ -2145,7 +2252,7 @@
                 submitBtn.style.pointerEvents = 'none';
                 
                 // Отправляем заявку через сервер
-                await sendToVK(name, phone);
+                await sendToVK(name, phone, method, currentButton);
                 
                 // Показываем успех
                 orderForm.style.display = 'none';
@@ -2159,7 +2266,7 @@
                 setTimeout(function() {
                     closeOrderPopup();
                     nameInput.value = '';
-                    phoneInput.value = '';
+                    phoneInputEl.value = '';
                 }, 3000);
             });
         })();
